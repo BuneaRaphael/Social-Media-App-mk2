@@ -1,31 +1,45 @@
 import "./post.css"
 import { MoreVert ,Favorite} from "@mui/icons-material"
-export default function Post() {
+import {Users} from "../../dummyData.js"
+import { useState } from "react"
+export default function Post({post}) {
+   const user= Users.filter((u)=>u.id===post.userId)[0]
+   const [like , setLike ]= useState(post.like)
+   const [isLiked,setIsLiked]= useState(false)
+   const likeHandler = ()=>{
+    setLike(isLiked ? like -1 : like + 1)
+    setIsLiked(!isLiked)
+   }
   return (
+    
     <div>
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img className="postProfileImg" src="/assets/img4.jpg" alt="" />
-                        <span className="postUsername">Raphael Bunea</span>
-                        <span className="postdate">5 mins ago</span>
+                        <img className="postProfileImg" src={user.profilePicture} alt="" />
+                        <span className="postUsername">
+                            {user.username}
+                        </span>
+                        <span className="postdate">{post.date}</span>
                     </div>
                     <div className="postTopRight">
-                        <MoreVert/>
+                        <MoreVert />
                     </div>
                 </div>
                 <div className="postCenter">
-                    <span className="postText">Hey! Its my first Post!</span>
-                    <img className="postImg" src="assets/img3.jpg" alt="" />
+                    <span className="postText">{post?.desc}</span>
+                    <img className="postImg" src={post.photo} alt="" />
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <Favorite className="likeIcon"/>
-                        <span className="postLikeCounter">32 people like it</span>
+                        <div onClick={likeHandler}className="likeButton">
+                            {isLiked ?  <Favorite  className="likedIcon"/> : <Favorite className="likeIcon"/>}
+                        </div>
+                        <span className="postLikeCounter">{like} people liked this !</span>
                     </div>
                     <div className="postBottomRight">
-                        <span className="postCommentText">9 comments</span>
+                        <span className="postCommentText">{post.comment}</span>
 
                     </div>
                 </div>

@@ -58,6 +58,13 @@
     cursor:pointer;
     color: red;
 }
+.likedIcon{
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    cursor:pointer;
+    color: #1877f2;
+}
 .postLikeCounter{
     font-size: 15px;
 }
